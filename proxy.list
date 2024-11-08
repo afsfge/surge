@@ -6,10 +6,9 @@ DOMAIN-SUFFIX,initnil.com
 DOMAIN-SUFFIX,jetbrains.com
 DOMAIN,nssurge.com
 DOMAIN,havoc.app // Added for: havoc.app:443
-#DOMAIN,linux.do // Added for: linux.do:443
 DOMAIN,ellekit.space // Added for: ellekit.space:443
 DOMAIN-SUFFIX,ninecloud.co // Added for: gov.ninecloud.co:443
-DOMAIN,linux.do // Added for: linux.do:443
+DOMAIN-SUFFIX,linux.do // Added for: linux.do:443
 DOMAIN-SUFFIX,ninecloud.cfd // Added for: www.ninecloud.cfd:443
 DOMAIN-SUFFIX,notion.so // Added for: www.notion.so:443
 DOMAIN-SUFFIX,bitwarden.com // Added for: identity.bitwarden.com:443
