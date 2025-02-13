@@ -23,8 +23,8 @@ DOMAIN-SUFFIX,featuregates.org
 # DOMAIN,api.revenuecat.com
 # 上面这一条可能会误伤 👆🏻
 # 人机验证
-DOMAIN-SUFFIX,client-api.arkoselabs.com
-DOMAIN-SUFFIX,challenges.cloudflare.com
+# DOMAIN-SUFFIX,client-api.arkoselabs.com
+# DOMAIN-SUFFIX,challenges.cloudflare.com
 # 上面这一条可能会误伤 👆🏻
 # IdenTrust 数字证书和安全服务
 DOMAIN-SUFFIX,identrust.com
@@ -43,8 +43,8 @@ DOMAIN-SUFFIX,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
 DOMAIN-SUFFIX,production-openaicom-storage.azureedge.net
 DOMAIN-SUFFIX,openaiapi-site.azureedge.net
 # Intercom 客户沟通平台
-DOMAIN-SUFFIX,intercom.io
-DOMAIN-SUFFIX,intercomcdn.com
+# DOMAIN-SUFFIX,intercom.io
+# DOMAIN-SUFFIX,intercomcdn.com
 # 上面这一条可能会误伤 👆🏻
 # ChatGPT App 语音服务
 DOMAIN-SUFFIX,livekit.cloud
