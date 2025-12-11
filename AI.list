@@ -1,3 +1,7 @@
+# NAME: Ai Rules
+# AUTHOR: https://t.me/ddgksf2021
+# UPDATED: 2025-11-26
+
 # > Ai general rules
 DOMAIN,api.statsig.com
 DOMAIN,browser-intake-datadoghq.com
@@ -17,10 +21,6 @@ DOMAIN-SUFFIX,amazonaws.com
 DOMAIN-SUFFIX,wp.com
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,stripe.com
-
-# > Apple AI
-DOMAIN-SUFFIX,apple-relay.cloudflare.com
-DOMAIN-SUFFIX,apple-relay.apple.com
   
 # > Anthropic/Claude
 DOMAIN,cdn.usefathom.com
@@ -48,6 +48,7 @@ DOMAIN-SUFFIX,colab.google.com
 DOMAIN-SUFFIX,colab.research.google.com
 DOMAIN-SUFFIX,developerprofiles.google.com
 DOMAIN-SUFFIX,googleusercontent.com
+DOMAIN-SUFFIX,googleapis.com
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 
 # > JetBrains AI
