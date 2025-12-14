@@ -1,25 +1,13 @@
-DOMAIN,apt.procurs.us
+DOMAIN-SUFFIX,cloudflare.com
 DOMAIN-SUFFIX,ping0.cc
 DOMAIN-SUFFIX,linux.do
+DOMAIN-SUFFIX,idcflare.com
 DOMAIN,www.fakexy.com
 DOMAIN-SUFFIX,sony.com
-DOMAIN,api.wcc.best
-DOMAIN,apt.thebigboss.org
-DOMAIN-SUFFIX,initnil.com
 DOMAIN-SUFFIX,jetbrains.com
 DOMAIN,nssurge.com
-DOMAIN,havoc.app // Added for: havoc.app:443
-DOMAIN,ellekit.space // Added for: ellekit.space:443
-DOMAIN-SUFFIX,ninecloud.co // Added for: gov.ninecloud.co:443
-DOMAIN-SUFFIX,ninecloud.cfd // Added for: www.ninecloud.cfd:443
 DOMAIN-SUFFIX,notion.so // Added for: www.notion.so:443
 DOMAIN-SUFFIX,bitwarden.com // Added for: identity.bitwarden.com:443
-DOMAIN-SUFFIX,acaisbest.com // Added for: dadada.acaisbest.com:443
-DOMAIN-SUFFIX,aca.best // Added for: www.aca.best:443
 DOMAIN-SUFFIX,flowercloud.net
-DOMAIN-SUFFIX,hmxz.org
-DOMAIN-SUFFIX,chariz.com
-DOMAIN-SUFFIX,notion.site
-DOMAIN,z.7li7li.com
 DOMAIN-KEYWORD,github
 DOMAIN-SUFFIX,oplist.org
