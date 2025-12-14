@@ -11,3 +11,4 @@ DOMAIN-SUFFIX,bitwarden.com // Added for: identity.bitwarden.com:443
 DOMAIN-SUFFIX,flowercloud.net
 DOMAIN-KEYWORD,github
 DOMAIN-SUFFIX,oplist.org
+DOMAIN-SUFFIX,v2ex.com
