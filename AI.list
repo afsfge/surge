@@ -8,7 +8,7 @@ DOMAIN,browser-intake-datadoghq.com
 DOMAIN,static.cloudflareinsights.com
 DOMAIN-SUFFIX,algolia.net
 DOMAIN-SUFFIX,auth0.com
-#DOMAIN-SUFFIX,cloudflare.com
+DOMAIN-SUFFIX,cloudflare.com
 DOMAIN-SUFFIX,arkoselabs.com
 DOMAIN-SUFFIX,statsigapi.net
 DOMAIN-SUFFIX,featuregates.org
