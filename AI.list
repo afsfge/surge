@@ -75,6 +75,12 @@ DOMAIN,www.bing.com
 DOMAIN-SUFFIX,api.microsoftapp.net
 DOMAIN-SUFFIX,bing-shopping.microsoft-falcon.io
 DOMAIN-SUFFIX,edgeservices.bing.com
+DOMAIN-SUFFIX,cloud.microsoft
+DOMAIN-SUFFIX,microsoft.com
+DOMAIN-SUFFIX,live.com
+DOMAIN-SUFFIX,office.net
+DOMAIN-SUFFIX,sharepoint.com
+DOMAIN-SUFFIX,sharepointonline.com
 
 # > Midjourney
 DOMAIN-SUFFIX,midjourney.com
