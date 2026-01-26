@@ -1,1 +1,5 @@
-IP-CIDR,1.15.77.143/32
+DOMAIN,metrics-picture.d.meituan.net
+DOMAIN,maplocatesdksnapshot.d.meituan.net
+DOMAIN,al-log.d.meituan.net
+DOMAIN,babel-statistics-android.d.meituan.net
+DOMAIN,route-stats.d.meituan.net
