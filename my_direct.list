@@ -5,3 +5,4 @@ DOMAIN,download.jetbrains.com
 DOMAIN-SUFFIX,mysmartadvisor.com
 DOMAIN-SUFFIX,zoom.us
 DOMAIN-SUFFIX,2222002.xyz
+IP-CIDR,69.63.215.49/32
