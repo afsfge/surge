@@ -1,0 +1,12 @@
+#!name=美团重定向
+#!desc=VPN环境下，错误解析修复。
+#!category=本地
+
+[URL Rewrite]
+^http(s)?:\/\/(.*).d.meituan.net http$1://$2.dreport.meituan.net 302
+
+[Host]
+ntp.nasa.gov = time.nist.gov
+
+[MITM]
+hostname = %APPEND% metrics-picture.d.meituan.net,maplocatesdksnapshot.d.meituan.net,route-stats.d.meituan.net,al-log.d.meituan.net
