@@ -8,8 +8,8 @@ DOMAIN-SUFFIX,bitwarden.com
 DOMAIN-SUFFIX,flowercloud.net
 DOMAIN-SUFFIX,oplist.org
 DOMAIN-SUFFIX,v2ex.com
-#DOMAIN-SUFFIX,linux.do
-#DOMAIN-SUFFIX,idcflare.com
+DOMAIN-SUFFIX,linux.do
+DOMAIN-SUFFIX,idcflare.com
 DOMAIN-SUFFIX,crvesoft.top
 DOMAIN-SUFFIX,dmit.io
 DOMAIN-SUFFIX,nodeseek.com
