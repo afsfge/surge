@@ -1,0 +1,63 @@
+# Surge 配置
+
+## Meituan DNS 精简版
+
+一个始终启用的模块和一个 DNS 脚本：仅当 SSID 严格等于 `Meituan`，且域名属于公司列表时，使用内网 DNS。没有模块自动启停、网络事件脚本或外部进程。
+
+- [模块订阅地址](https://raw.githubusercontent.com/afsfge/surge/main/Meituan-DNS-Simple.sgmodule)
+- [JavaScript 脚本](scripts/meituan-dns-simple.js)
+- 公司域名：`sankuai.com`、`51ping.com`，包含根域名及其子域名。
+- 国内列表：Loyalsoldier `direct.txt`，与本仓库用于流量分流的 `my_direct.list` 不同。
+
+```mermaid
+flowchart TD
+  A[Surge 需要解析域名] --> B{匹配显式保留的 Host 映射?}
+  B -->|是| C[使用保留的映射]
+  B -->|否| D[按国内列表选择脚本入口]
+  D --> E{Meituan Wi-Fi 且公司域名?}
+  E -->|是| F[11.11.11.12 / 11.11.11.11]
+  E -->|否| G{国内列表入口?}
+  G -->|是| H[223.6.6.6 / 119.29.29.29]
+  G -->|否| I[主配置标准解析：保持启用 DoH]
+```
+
+两个脚本入口执行同一个 JS，通过 `argument` 区分是否命中国内列表；公司域名判断优先于国内列表。SSID 不可用、空值、大小写不匹配或没有 Wi-Fi 时，均不使用公司 DNS。
+
+### 安装
+
+1. 备份当前主配置。在 Surge 模块管理中通过上面的模块订阅地址安装，脚本由模块的远程 URL 加载。
+2. 主配置保持原来的 `encrypted-dns-server`（DoH），以及 `dns-server = 223.6.6.6,119.29.29.29`。模块不包含个人 DoH 地址或凭据。
+3. 删除主配置中无条件使用公司 DNS 的 `*.sankuai.com`、`*.51ping.com` 映射，以及 `[SSID Setting]` 下的 `SSID:Meituan dns-server="11.11.11.12"`。否则停用模块后，旧的内网 DNS 设置仍然生效。
+4. 开启 Scripting 并启用 `Meituan DNS 精简版`。不要同时启用之前的 DNS 自动切换模块；开启 Scripting 前确认其他脚本的启用状态。
+5. 重新加载配置，刷新模块和远程脚本资源，并清理 Surge DNS 缓存。确认资源下载成功后再验证解析。
+
+此模块的 `*` 会接管后续 Host 匹配。主配置原有 Apple、微信、腾讯等 DNS 特例将改为按国内列表/默认 DNS 处理。固定 IP、别名、Tailscale 特殊名称和 `/etc/hosts` 中必须保留的条目，需要显式放在本模块的两条脚本入口之前；模块目前仅保留 `*.local = server:system`。仓库既有 `meituan.sgmodule` 中的 `ntp.nasa.gov` 别名如仍需使用，也应在脚本入口前保留，不能依赖多个模块的加载顺序。
+
+### 维护
+
+公司域名只需修改 `scripts/meituan-dns-simple.js` 中的 `companyDomains` 数组。每项填写不带 `*.` 的域名后缀。修改并推送后，在 Surge 中更新远程脚本资源；仅更新模块不保证清除脚本缓存。若改名或换分支，需同步修改模块中的两个 `script-path`。
+
+### 验证与边界
+
+离线测试（无需 npm 依赖）：
+
+```sh
+node tests/meituan-dns-simple.test.cjs
+```
+
+测试覆盖公司/非公司网络、SSID 缺失、两个域名入口、公司根域名和子域名、大小写与末尾点、相似后缀及异常输入。测试使用模拟 Surge 全局变量，不能替代实际网络验收。
+
+安装后连接 `Meituan`、切换手机热点、再切回公司 Wi-Fi，每次清理 DNS 缓存，使用 Surge DNS 查询/跟踪核对以下结果：
+
+| 网络 | 公司域名 | 非公司且命中国内列表 | 非公司且未命中国内列表 |
+| --- | --- | --- | --- |
+| Meituan | 内网 DNS | 国内 DNS | 默认 DoH |
+| 其他或 SSID 不可用 | 按国内列表或默认 DoH | 国内 DNS | 默认 DoH |
+
+脚本仅在 Surge 实际执行解析时判断网络，缓存命中不会重新执行脚本，因此不保证网络切换瞬间更新所有缓存。未添加自动清缓存事件；切换网络后若沿用旧结果，应手动清理缓存。公司 DNS 故障时不主动改用公网 DNS，以免把内网域名错误解析到公网。
+
+模块只影响 Surge 处理的本地 DNS，不改变流量出口，也不接管代理服务器远端解析、应用内置 DoH 或绕过 Surge 的系统查询。公司域名的流量仍需在现有规则中正确直连。仅连接公司有线网络或 VPN 而 SSID 不是 `Meituan` 时，不会启用内网 DNS。
+
+停用模块可退出这套 DNS 脚本逻辑；如需完全恢复安装前行为，恢复备份的主配置并清理 DNS 缓存。
+
+接口依据：[DNS Script](https://manual.nssurge.com/scripting/dns.html)、[Host 匹配规则](https://manual.nssurge.com/dns/local-dns-mapping.html)、[脚本全局变量](https://manual.nssurge.com/scripting/api.html)。配置语法在 Surge Mac 6.10.0 上验证；其他版本应先进行配置检查。

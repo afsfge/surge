@@ -1,0 +1,13 @@
+#!name=Meituan DNS 精简版
+#!desc=Meituan Wi-Fi 下公司域名使用内网 DNS；其余按国内列表或主配置默认 DNS 解析。
+#!system=mac
+
+[Host]
+# 固定 IP、别名及其他必须保留的 Host 映射应放在下面两条脚本入口之前。
+*.local = server:system
+RULE-SET:https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/direct.txt = script:meituan-dns-domestic
+* = script:meituan-dns-default
+
+[Script]
+meituan-dns-domestic = type=dns,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=domestic
+meituan-dns-default = type=dns,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=default
