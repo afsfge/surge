@@ -51,6 +51,7 @@ for (const [network, atOffice] of networks) {
 }
 
 const moduleText = fs.readFileSync(path.join(root, 'Meituan-DNS-Simple.sgmodule'), 'utf8');
+assert.ok(!/^#!system=mac\s*$/m.test(moduleText), '模块不能仅限制 macOS');
 assert.match(moduleText, /RULE-SET:https:\/\/raw\.githubusercontent\.com\/Loyalsoldier\/surge-rules\/release\/ruleset\/direct\.txt = script:meituan-dns-domestic/);
 assert.ok(moduleText.indexOf('*.local = server:system') < moduleText.indexOf('RULE-SET:'));
 assert.ok(moduleText.indexOf('RULE-SET:') < moduleText.indexOf('* = script:meituan-dns-default'));

@@ -61,3 +61,15 @@ node tests/meituan-dns-simple.test.cjs
 停用模块可退出这套 DNS 脚本逻辑；如需完全恢复安装前行为，恢复备份的主配置并清理 DNS 缓存。
 
 接口依据：[DNS Script](https://manual.nssurge.com/scripting/dns.html)、[Host 匹配规则](https://manual.nssurge.com/dns/local-dns-mapping.html)、[脚本全局变量](https://manual.nssurge.com/scripting/api.html)。配置语法在 Surge Mac 6.10.0 上验证；其他版本应先进行配置检查。
+
+### iPhone 与 Apple TV
+
+模块不再设置 `#!system=mac` 平台限制，iPhone 与 Apple TV 请使用同一个模块订阅 URL（raw.githubusercontent.com 原始文件地址，而不是 GitHub 文件网页）。Surge tvOS 与 iOS 使用相同内核，支持脚本；通过 iPhone 的 Surge tvOS 管理入口配置 Apple TV。
+
+手机及 Apple TV 同样需要启用脚本，主配置保留 DoH。内网 DNS 仍严格依赖 SSID 等于 `Meituan`；家庭 Wi-Fi、有线网络或无法读取 SSID 时，只走国内列表/默认 DNS。不会因为运行在 Apple TV 上就启用公司 DNS。
+
+目前仅在 Mac 6.10.0 上完成配置和解析实测，尚未在 iOS/tvOS 上验收。官方 iOS 更新日志确认从 5.14.3 开始支持 Host 中的 RULE-SET/DOMAIN-SET；多 DNS 服务器语法的文档版本门槛为 iOS 5.21.0+，建议使用最新版本。若导入仍提示无效，请提供 Surge 版本及具体错误信息，以区分平台限制、语法支持或下载内容问题。
+
+参考：[模块平台限制](https://manual.nssurge.com/profile/module.html)、[Surge tvOS](https://kb.nssurge.com/surge-knowledge-base/guidelines/tvos)。
+
+版本依据：[Surge iOS 更新日志](https://kb.nssurge.com/surge-knowledge-base/release-notes/surge-ios)。
