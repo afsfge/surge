@@ -8,5 +8,5 @@ RULE-SET:https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/rule
 * = script:meituan-dns-default
 
 [Script]
-meituan-dns-domestic = type=dns,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=domestic
-meituan-dns-default = type=dns,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=default
+meituan-dns-domestic = type=dns,engine=jsc,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=domestic
+meituan-dns-default = type=dns,engine=jsc,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=default

@@ -56,6 +56,6 @@ assert.match(moduleText, /RULE-SET:https:\/\/raw\.githubusercontent\.com\/Loyals
 assert.ok(moduleText.indexOf('*.local = server:system') < moduleText.indexOf('RULE-SET:'));
 assert.ok(moduleText.indexOf('RULE-SET:') < moduleText.indexOf('* = script:meituan-dns-default'));
 for (const entry of ['domestic', 'default']) {
-  assert.ok(moduleText.includes(`meituan-dns-${entry} = type=dns,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=${entry}`));
+  assert.ok(moduleText.includes(`meituan-dns-${entry} = type=dns,engine=jsc,script-path=https://raw.githubusercontent.com/afsfge/surge/main/scripts/meituan-dns-simple.js,argument=${entry}`));
 }
 console.log(`通过 ${count} 组 DNS 分支测试及模块入口检查。`);
