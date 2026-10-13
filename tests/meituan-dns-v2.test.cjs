@@ -1,0 +1,33 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const root = path.resolve(__dirname, '..');
+const source = fs.readFileSync(path.join(root, 'scripts/meituan-company-dns-v2.js'), 'utf8');
+const moduleText = fs.readFileSync(path.join(root, 'Meituan-DNS-V2.sgmodule'), 'utf8');
+const cases = [
+  [{ wifi: { ssid: 'Meituan' } }, true],
+  [{ wifi: { ssid: 'Home' } }, false],
+  [{ wifi: { ssid: 'meituan' } }, false],
+  [{ wifi: { ssid: '' } }, false],
+  [{ wifi: null }, false], [{}, false], [null, false], [undefined, false],
+];
+for (const [network, internal] of cases) {
+  const results = [];
+  const context = { $done: v => results.push(JSON.parse(JSON.stringify(v))) };
+  if (network !== undefined) context.$network = network;
+  vm.runInNewContext(source, context, { timeout: 1000 });
+  assert.deepEqual(results, [{ servers: internal ? ['11.11.11.12', '11.11.11.11'] : ['223.6.6.6', '119.29.29.29'] }]);
+}
+const hosts = moduleText.split('[Host]')[1].split('[Script]')[0];
+const mappings = hosts.split('\n').filter(l => l.includes(' = script:'));
+assert.deepEqual(mappings.map(l => l.split(' = ')[0]), ['sankuai.com', '*.sankuai.com', '51ping.com', '*.51ping.com']);
+assert.ok(mappings.every(l => l.endsWith('script:meituan-company-dns-v2')));
+assert.ok(!/^\*\s*=/m.test(hosts));
+assert.match(hosts, /RULE-SET:.*direct\.txt = server:223\.6\.6\.6,119\.29\.29\.29/);
+assert.ok(hosts.indexOf('sankuai.com = script:') < hosts.indexOf('RULE-SET:'));
+for (const domain of ['apple.com.cn', 'icloud.com', 'weixin.com', 'tencent.com', 'apple.com']) {
+  assert.ok(hosts.includes(`*.${domain} = server:119.29.29.29`));
+}
+assert.match(moduleText, /meituan-company-dns-v2 = type=dns,engine=jsc,script-path=https:\/\/raw\.githubusercontent\.com\/afsfge\/surge\/main\/scripts\/meituan-company-dns-v2\.js/);
+console.log('通过 8 组网络分支测试；确认仅公司域名进入脚本、无通配脚本兜底、原生 DNS 规则完整。');

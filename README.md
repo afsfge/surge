@@ -1,5 +1,26 @@
 # Surge 配置
 
+## DNS V2（推荐）
+
+[安装模块](https://raw.githubusercontent.com/afsfge/surge/main/Meituan-DNS-V2.sgmodule)。启用 `Meituan DNS V2`，停用两个旧版 DNS 模块，保持 Scripting 开启，并保留主配置的默认 DoH。
+
+- 只有 `sankuai.com`、`51ping.com` 根域名及子域名进入 JSC 脚本：`Meituan` Wi-Fi 使用内网 DNS；其他网络直接使用 `223.6.6.6 / 119.29.29.29`，不再按国内列表选择 DoH。
+- Apple、iCloud、微信、腾讯五条特例直接使用 `119.29.29.29`。
+- 国内 `direct.txt` 列表直接使用国内 DNS。
+- 没有 `*` 脚本兜底；其余域名继续检查主配置的 Host 映射，未匹配时使用默认 DoH。
+
+增加公司域名时，只需修改 V2 模块的 `[Host]`，为每个后缀添加 `example.com` 与 `*.example.com` 两条 `script:meituan-company-dns-v2` 映射，JS 无需修改。V1 文件保留供回退。当前 `sthree-itsec.meituan.com` 不在清单中。
+
+```text
+公司域名 → JS 判断 Wi-Fi → 内网 DNS / 国内 DNS
+其余域名 → 原生 Host 规则 → 特例 DNS / 国内 DNS / 默认 DoH
+```
+
+主配置若另有固定 DNS 映射仍会生效；不要同时启用旧模块的 `*` 脚本规则。缓存命中不重新判断 Wi-Fi，切网后若沿用旧结果需清理 DNS 缓存。有线公司网络或仅 VPN 连接不会被视作 Meituan Wi-Fi。此优化减少脚本执行范围，不保证改善上游 DNS 或代理链路延迟。
+
+运行 `node tests/meituan-dns-v2.test.cjs` 验证网络分支及模块规则结构。
+
+
 ## Meituan DNS 精简版
 
 一个始终启用的模块和一个 DNS 脚本：仅当 SSID 严格等于 `Meituan`，且域名属于公司列表时，使用内网 DNS。没有模块自动启停、网络事件脚本或外部进程。
