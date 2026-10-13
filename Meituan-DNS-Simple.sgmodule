@@ -4,6 +4,14 @@
 [Host]
 # 固定 IP、别名及其他必须保留的 Host 映射应放在下面两条脚本入口之前。
 *.local = server:system
+
+# 高频域名直接使用国内 DNS，不经过脚本，也不区分网络。
+*.apple.com.cn = server:119.29.29.29
+*.icloud.com = server:119.29.29.29
+*.weixin.com = server:119.29.29.29
+*.tencent.com = server:119.29.29.29
+*.apple.com = server:119.29.29.29
+
 RULE-SET:https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/direct.txt = script:meituan-dns-domestic
 * = script:meituan-dns-default
 

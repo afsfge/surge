@@ -73,3 +73,7 @@ node tests/meituan-dns-simple.test.cjs
 参考：[模块平台限制](https://manual.nssurge.com/profile/module.html)、[Surge tvOS](https://kb.nssurge.com/surge-knowledge-base/guidelines/tvos)。
 
 版本依据：[Surge iOS 更新日志](https://kb.nssurge.com/surge-knowledge-base/release-notes/surge-ios)。
+
+### 高频域名直接解析
+
+`*.apple.com.cn`、`*.icloud.com`、`*.weixin.com`、`*.tencent.com`、`*.apple.com` 在脚本入口之前固定使用 `119.29.29.29`，不执行 DNS 脚本，也不区分内外网。上述通配符不包含根域名，根域名继续按国内列表/默认 DNS 处理。两个 DNS 脚本显式使用 `engine=jsc`。
