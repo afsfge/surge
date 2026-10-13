@@ -1,0 +1,4 @@
+# 公司域名 DNS 列表；DOMAIN-SUFFIX 包含根域名及全部子域名。
+# DNS 用途，不改变流量代理策略。
+DOMAIN-SUFFIX,sankuai.com
+DOMAIN-SUFFIX,51ping.com

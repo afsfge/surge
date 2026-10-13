@@ -98,3 +98,25 @@ node tests/meituan-dns-simple.test.cjs
 ### 高频域名直接解析
 
 `*.apple.com.cn`、`*.icloud.com`、`*.weixin.com`、`*.tencent.com`、`*.apple.com` 在脚本入口之前固定使用 `119.29.29.29`，不执行 DNS 脚本，也不区分内外网。上述通配符不包含根域名，根域名继续按国内列表/默认 DNS 处理。两个 DNS 脚本显式使用 `engine=jsc`。
+
+## 原生并发 DNS 方案
+
+公司 DNS 清单独立维护在 [meituan_dns.list](meituan_dns.list)。添加 `DOMAIN-SUFFIX,example.com` 覆盖根域名和全部子域名，或 `DOMAIN,host.example.com` 精确匹配单个域名。不填写策略列。
+
+在主配置 `[Host]` 中，将公司清单放在国内列表之前：
+
+```ini
+[Host]
+*.local = server:system
+RULE-SET:https://raw.githubusercontent.com/afsfge/surge/main/meituan_dns.list = server:11.11.11.12,11.11.11.11,223.6.6.6,119.29.29.29
+*.apple.com.cn = server:119.29.29.29
+*.icloud.com = server:119.29.29.29
+*.weixin.com = server:119.29.29.29
+*.tencent.com = server:119.29.29.29
+*.apple.com = server:119.29.29.29
+RULE-SET:https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/direct.txt = server:223.6.6.6,119.29.29.29
+```
+
+使用时停用 DNS V2 和旧版 DNS 模块，保留原有默认 DoH。未匹配 Host 的域名使用默认解析。列表更新后刷新 Surge 对应远程规则集。
+
+本方案无 JS、无网络判断：多个 DNS 并发竞争，公司网络下也可能采用公网答案；列表中出现内外网结果不同的域名时，可能影响访问。它不是内网优先或失败回退机制。公司 DNS 故障时也不保证公网能解析纯内网域名。V2 文件保留用于恢复网络条件判断。
