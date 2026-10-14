@@ -2,3 +2,7 @@
 # DNS 用途，不改变流量代理策略。
 DOMAIN-SUFFIX,sankuai.com
 DOMAIN-SUFFIX,51ping.com
+DOMAIN-SUFFIX,meituan.com
+DOMAIN-SUFFIX,meituan.net
+
+
