@@ -1,0 +1,6 @@
+# 强制使用 DNS Routing 模块指定的 DoH；仅影响 Surge 本地 DNS 解析。
+# 每行一个域名规则，不填写策略列。不添加规则时不匹配任何域名。
+# 以下仅为注释示例，添加时去掉开头的 #：
+# DOMAIN-SUFFIX,example.com
+# DOMAIN,host.example.net
+# 本列表优先于公司域名和国内 DNS 列表；添加公司域名会绕过内网 DNS。

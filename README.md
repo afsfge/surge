@@ -1,18 +1,24 @@
 # Surge 配置
 
-## DNS V2（推荐）
+## DNS Routing（推荐）
 
-[安装模块](https://raw.githubusercontent.com/afsfge/surge/main/Meituan-DNS-V2.sgmodule)。启用 `Meituan DNS V2`，停用两个旧版 DNS 模块，保持 Scripting 开启，并保留主配置的默认 DoH。
+[安装模块](https://raw.githubusercontent.com/afsfge/surge/main/DNS-Routing.sgmodule)。启用 `DNS Routing`，停用两个旧版 DNS 模块，保持 Scripting 开启，并保留主配置的默认 DoH。
 
+- [force_doh.list](force_doh.list) 中的所有域名优先使用 `https://j16nfj6elr.cloudflare-gateway.com/dns-query`，不走 JS；初始为空，由你自行添加。它优先于下列所有规则，即使域名也在公司列表中。
 - 只有 `sankuai.com`、`51ping.com` 根域名及子域名进入 JSC 脚本：`Meituan` Wi-Fi 使用内网 DNS；其他网络直接使用 `223.6.6.6 / 119.29.29.29`，不再按国内列表选择 DoH。
 - Apple、iCloud、微信、腾讯五条特例直接使用 `119.29.29.29`。
 - 国内 `direct.txt` 列表直接使用国内 DNS。
 - 没有 `*` 脚本兜底；其余域名继续检查主配置的 Host 映射，未匹配时使用默认 DoH。
 
+维护强制 DoH 域名时，在 `force_doh.list` 添加 `DOMAIN-SUFFIX,example.com`（根域名及子域名）或 `DOMAIN,host.example.com`（单域名），不加策略列。提交后更新 Surge 对应远程规则集，必要时清理 DNS 缓存。仓库已有的 `doh.list` 保持独立，新模块不引用它。
+
+旧的 `Meituan-DNS-V2.sgmodule` 订阅地址同步提供同一新版内容，已有远程订阅可直接更新；本地安装需重新导入新版。两个地址只安装、启用其中一个，避免重复加载。模块不改变主配置的 `encrypted-dns-follow-outbound-mode`，保留原来的 `true` 即可。指定 DoH 仅约束 Surge 本地解析，不控制代理服务器远端解析或应用内置 DNS。
+
 增加公司域名时，只需修改 `meituan_dns.list`：添加 `DOMAIN-SUFFIX,example.com` 覆盖根域名及子域名，或 `DOMAIN,host.example.com` 精确匹配。V2 模块与原生并发方案共用该列表，模块及 JS 无需修改。更新后刷新 Surge 中对应远程规则集。V1 文件保留供回退。当前 `sthree-itsec.meituan.com` 不在清单中。
 
 ```text
-公司域名 → JS 判断 Wi-Fi → 内网 DNS / 国内 DNS
+force_doh.list → 指定 Cloudflare Gateway DoH（最高优先级）
+未命中且属于公司域名 → JS 判断 Wi-Fi → 内网 DNS / 国内 DNS
 其余域名 → 原生 Host 规则 → 特例 DNS / 国内 DNS / 默认 DoH
 ```
 
