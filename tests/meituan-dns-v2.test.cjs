@@ -21,11 +21,11 @@ for (const [network, internal] of cases) {
 }
 const hosts = moduleText.split('[Host]')[1].split('[Script]')[0];
 const mappings = hosts.split('\n').filter(l => l.includes(' = script:'));
-assert.deepEqual(mappings.map(l => l.split(' = ')[0]), ['sankuai.com', '*.sankuai.com', '51ping.com', '*.51ping.com']);
+assert.deepEqual(mappings.map(l => l.split(' = ')[0]), ['RULE-SET:https://raw.githubusercontent.com/afsfge/surge/main/meituan_dns.list']);
 assert.ok(mappings.every(l => l.endsWith('script:meituan-company-dns-v2')));
 assert.ok(!/^\*\s*=/m.test(hosts));
 assert.match(hosts, /RULE-SET:.*direct\.txt = server:223\.6\.6\.6,119\.29\.29\.29/);
-assert.ok(hosts.indexOf('sankuai.com = script:') < hosts.indexOf('RULE-SET:'));
+assert.ok(hosts.indexOf('meituan_dns.list = script:') < hosts.indexOf('RULE-SET:https://raw.githubusercontent.com/Loyalsoldier/'));
 for (const domain of ['apple.com.cn', 'icloud.com', 'weixin.com', 'tencent.com', 'apple.com']) {
   assert.ok(hosts.includes(`*.${domain} = server:119.29.29.29`));
 }

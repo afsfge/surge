@@ -9,7 +9,7 @@
 - 国内 `direct.txt` 列表直接使用国内 DNS。
 - 没有 `*` 脚本兜底；其余域名继续检查主配置的 Host 映射，未匹配时使用默认 DoH。
 
-增加公司域名时，只需修改 V2 模块的 `[Host]`，为每个后缀添加 `example.com` 与 `*.example.com` 两条 `script:meituan-company-dns-v2` 映射，JS 无需修改。V1 文件保留供回退。当前 `sthree-itsec.meituan.com` 不在清单中。
+增加公司域名时，只需修改 `meituan_dns.list`：添加 `DOMAIN-SUFFIX,example.com` 覆盖根域名及子域名，或 `DOMAIN,host.example.com` 精确匹配。V2 模块与原生并发方案共用该列表，模块及 JS 无需修改。更新后刷新 Surge 中对应远程规则集。V1 文件保留供回退。当前 `sthree-itsec.meituan.com` 不在清单中。
 
 ```text
 公司域名 → JS 判断 Wi-Fi → 内网 DNS / 国内 DNS

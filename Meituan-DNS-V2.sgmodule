@@ -4,11 +4,8 @@
 [Host]
 *.local = server:system
 
-# 公司清单只在这里维护，每个域名同时添加根域名和子域名规则。
-sankuai.com = script:meituan-company-dns-v2
-*.sankuai.com = script:meituan-company-dns-v2
-51ping.com = script:meituan-company-dns-v2
-*.51ping.com = script:meituan-company-dns-v2
+# 公司清单统一维护在 meituan_dns.list；命中后由脚本判断网络。
+RULE-SET:https://raw.githubusercontent.com/afsfge/surge/main/meituan_dns.list = script:meituan-company-dns-v2
 
 *.apple.com.cn = server:119.29.29.29
 *.icloud.com = server:119.29.29.29

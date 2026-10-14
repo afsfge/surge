@@ -1,4 +1,4 @@
-// 仅由模块中明确列出的公司域名触发；公司清单在模块中维护。
+// 仅由模块引用的 meituan_dns.list 公司域名触发；清单统一在列表文件维护。
 const isMeituan = typeof $network !== "undefined" && $network != null &&
   $network.wifi != null && $network.wifi.ssid === "Meituan";
 
