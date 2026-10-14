@@ -33,8 +33,5 @@ assert.match(moduleText, /meituan-company-dns-v2 = type=dns,engine=jsc,script-pa
 console.log('通过 8 组网络分支测试；确认仅公司域名进入脚本、无通配脚本兜底、原生 DNS 规则完整。');
 
 assert.equal(moduleText, fs.readFileSync(path.join(root, 'Meituan-DNS-V2.sgmodule'), 'utf8'), '旧订阅地址应与新版一致');
-const firstRule = hosts.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#'));
-assert.equal(firstRule, 'RULE-SET:https://raw.githubusercontent.com/afsfge/surge/main/force_doh.list = server:https://j16nfj6elr.cloudflare-gateway.com/dns-query');
-const dohRules = fs.readFileSync(path.join(root, 'force_doh.list'), 'utf8').split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'));
-assert.ok(dohRules.every(l => /^(DOMAIN|DOMAIN-SUFFIX),[^,\s]+$/.test(l)), '强制 DoH 列表只允许域名规则');
-console.log('确认强制 DoH 优先级最高、列表格式有效、旧订阅兼容。');
+assert.ok(!moduleText.includes('force_doh.list'), '模块不应引用强制 DoH 列表');
+console.log('确认旧订阅兼容、强制 DoH 入口已移除。');
