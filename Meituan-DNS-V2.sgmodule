@@ -1,7 +1,9 @@
 #!name=DNS Routing
-#!desc=公司网络 DNS 判断与国内 DNS 分流；其余使用主配置默认 DNS。
+#!desc=强制 DoH 列表、公司网络 DNS 判断与国内 DNS 分流；其余使用主配置默认 DNS。
 
 [Host]
+# 强制 DoH 优先于公司及国内 DNS 规则。
+RULE-SET:https://raw.githubusercontent.com/afsfge/surge/refs/heads/main/force_doh.list = server:https://j16nfj6elr.cloudflare-gateway.com/dns-query
 
 *.local = server:system
 

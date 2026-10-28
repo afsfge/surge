@@ -4,7 +4,8 @@
 
 [安装模块](https://raw.githubusercontent.com/afsfge/surge/main/DNS-Routing.sgmodule)。启用 `DNS Routing`，停用两个旧版 DNS 模块，保持 Scripting 开启，并保留主配置的默认 DoH。
 
-- 只有 `sankuai.com`、`51ping.com` 根域名及子域名进入 JSC 脚本：`Meituan` Wi-Fi 使用内网 DNS；其他网络直接使用 `223.6.6.6 / 119.29.29.29`，不再按国内列表选择 DoH。
+- [force_doh.list](force_doh.list) 优先使用 Cloudflare Gateway DoH（`https://j16nfj6elr.cloudflare-gateway.com/dns-query`），不进入 JS；即使同时命中公司列表，也不会使用内网 DNS。更新列表后刷新 Surge 远程规则集。此设置不改变网站的直连或代理策略。
+- 未命中强制 DoH 列表时，只有 `sankuai.com`、`51ping.com` 根域名及子域名进入 JSC 脚本：`Meituan` Wi-Fi 使用内网 DNS；其他网络直接使用 `223.6.6.6 / 119.29.29.29`，不再按国内列表选择 DoH。
 - Apple、iCloud、微信、腾讯五条特例直接使用 `119.29.29.29`。
 - 国内 `direct.txt` 列表直接使用国内 DNS。
 - 没有 `*` 脚本兜底；其余域名继续检查主配置的 Host 映射，未匹配时使用默认 DoH。
@@ -15,7 +16,8 @@
 增加公司域名时，只需修改 `meituan_dns.list`：添加 `DOMAIN-SUFFIX,example.com` 覆盖根域名及子域名，或 `DOMAIN,host.example.com` 精确匹配。V2 模块与原生并发方案共用该列表，模块及 JS 无需修改。更新后刷新 Surge 中对应远程规则集。V1 文件保留供回退。当前 `sthree-itsec.meituan.com` 不在清单中。
 
 ```text
-公司域名 → JS 判断 Wi-Fi → 内网 DNS / 国内 DNS
+force_doh.list → 指定 DoH（优先）
+未命中且属于公司域名 → JS 判断 Wi-Fi → 内网 DNS / 国内 DNS
 其余域名 → 原生 Host 规则 → 特例 DNS / 国内 DNS / 默认 DoH
 ```
 
