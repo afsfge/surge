@@ -1,8 +1,12 @@
 # 公司域名 DNS 列表；DOMAIN-SUFFIX 包含根域名及全部子域名。
-# DNS 用途，不改变流量代理策略。
+# 同时供 Host DNS 映射和 Rule DIRECT 引用；具体策略由客户端配置决定。
 DOMAIN-SUFFIX,sankuai.com
 DOMAIN-SUFFIX,51ping.com
 DOMAIN-SUFFIX,meituan.com
 DOMAIN-SUFFIX,meituan.net
-
-
+DOMAIN-SUFFIX,sankuai.info
+DOMAIN-SUFFIX,dianping.com
+DOMAIN-SUFFIX,neixin.cn
+DOMAIN-SUFFIX,keetapp.com
+DOMAIN-SUFFIX,mynocode.com
+DOMAIN-SUFFIX,mynocode.host
