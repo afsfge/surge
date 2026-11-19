@@ -1,2 +1,7 @@
 # 公司 IP 网段；客户端以 DIRECT,no-resolve 引用。
 IP-CIDR,11.0.0.0/8,no-resolve
+IP-CIDR,101.236.11.0/24,no-resolve
+IP-CIDR,103.37.142.0/24,no-resolve
+IP-CIDR,203.76.219.0/24,no-resolve
+IP-CIDR,101.50.9.0/24,no-resolve
+IP-CIDR,103.63.161.0/24,no-resolve
